@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+
+
+/* Method 1: Simple CSS smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add offset for fixed headers if you have any */
+section[id] {
+  scroll-margin-top: 80px; /* Adjust this value based on your header height */
+}
+
+/* Method 2: Enhanced smooth scrolling with custom timing */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
