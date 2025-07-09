@@ -197,7 +197,7 @@ export default function MainSlider() {
       
       {/* Slide indicator showing current slide / total slides */}
       <div className="absolute top-12 right-12 z-20 bg-black bg-opacity-30 backdrop-blur-sm rounded-full px-4 py-2 text-white font-medium">
-        {activeIndex + 1} / {slideData.length}
+       {/*  {activeIndex + 1} / {slideData.length} */}
       </div>
     </div>
   );
