@@ -80,11 +80,15 @@ export default function NavArea() {
             <div className='mx-auto w-[92%] flex flex-col items-center justify-between py-6 gap-4'>
                 <div className='flex-1'>
                     <Link href="/">
-                    <h1 className='text-[2rem] uppercase'>
-                        <span className='mr-2 font-extrabold'>IIA</span>
-                        <span className='text-teal-700 font-light'>Conference</span>
-                    </h1>
-                    </Link>
+                    <div className="h-[50px] aspect-[3.5/1] relative">
+                        <Image
+                        src="/assets/img/logo.jpg"
+                        fill
+                        alt="Company Logo"
+                        className="object-fill w-[100%]"
+                        /> 
+                    </div>
+                </Link>
                 </div>
                 <div className='w-[100%] flex items-center justify-end'>
                     <button onClick={() => setToggleNav(!toggleNav)}>
