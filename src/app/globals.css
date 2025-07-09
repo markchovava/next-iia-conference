@@ -25,3 +25,12 @@ section[id] {
     scroll-behavior: auto;
   }
 }
+
+
+select.transparent-select {
+    background-color: transparent !important;
+}
+
+select.transparent-select option {
+    background-color: transparent !important;
+}

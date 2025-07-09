@@ -71,8 +71,16 @@ export const SpeakerData = [
     },
   ] 
 
-export default function CarouselSpeakers() {
-  const [data, setData] = useState(SpeakerData)
+interface UserData {
+  id: number, name: string, position: string, img: string
+}
+
+interface CarouselSpeakersProps {
+  dbData: UserData[]
+}
+
+export default function CarouselSpeakers({ dbData }: CarouselSpeakersProps) {
+  const [data, setData] = useState<UserData[]>(dbData)
   const [windowWidth, setWindowWidth] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -125,7 +133,7 @@ export default function CarouselSpeakers() {
         {data.map((i, key) => (
           <SwiperSlide key={key} className='pt-4 pb-2 px-2'>
             <section className='w-[100%] rounded-xl bg-white ease-linear transition-all drop-shadow hover:drop-shadow-lg'>
-                <div className='bg-gray-300 overflow-hidden w-[100%] rounded-t-xl lg:aspect-[4/3] aspect-[5/3] flex items-center justify-center'>
+                <div className='bg-gray-300 overflow-hidden w-[100%] rounded-t-xl lg:aspect-[1/1] aspect-[5/3] flex items-center justify-center'>
                      <div className="relative w-[100%] h-[100%]">
                         <Image
                           src={i?.img}
@@ -136,15 +144,16 @@ export default function CarouselSpeakers() {
                       </div>
                 </div>
                 <div className="w-[100%] pt-8 pb-6 px-4">
-                    <p className='tracking-[1.5px] font-medium text-sm text-teal-700 mb-4'>
+                    {/* <p className='tracking-[1.5px] font-medium text-sm text-teal-700 mb-4'>
                       {i?.category}
-                    </p>
-                    <h3 className='text-2xl font-serif leading-tight mb-6'>
-                      { TrimString(i?.title, 20) }
+                    </p> */}
+                    <h3 className='text-2xl font-serif leading-tight mb-3'>
+                      { TrimString(i?.name, 20) }
                     </h3>
-                    <p className='mb-6'>
-                        {i?.detail}
-                    </p>
+                    <p className='tracking-[1.5px] font-medium text-sm text-teal-700 mb-4'>
+                      {i?.position}
+                    </p> 
+                    
                     
                 </div>
             </section>

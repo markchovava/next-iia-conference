@@ -3,6 +3,8 @@ import MainSlider from "./_components/MainSlider";
 import CarouselSpeakers from "./_components/CarouselSpeakers";
 import RegisterArea from "./_components/RegisterArea";
 import PackageArea from "./_components/PackageArea";
+import { Organisers } from "@/_data/Organisers";
+import { Secretariat } from "@/_data/Secretariat";
 
 
 
@@ -14,12 +16,15 @@ export default function Home() {
    <section id="about" className="py-[6rem] bg-teal-950 text-gray-200">
     <div className="mx-auto w-[82%]">
       <h1 className="text-center font-bold text-[3rem] uppercase mb-4 font-serif">
-        Connect, Collaborate, Conquer</h1>
+        Elevate your game, Rise above the status quo.</h1>
       <p className="font-light text-[1.8rem] text-center">
-        Join leading internal audit professionals at our Annual Conference to sharpen your 
-        skills, explore cutting-edge methodologies, and master the strategies that will define 
-        the future of our profession. Gain actionable insights, expand your network, and ensure 
-        your audit function remains indispensable in an evolving landscape.
+        The 2025 Annual Conference will be held in
+        the resort town of Victoria Falls from
+        September 9th to 13th, 2025. This
+        conference is the institute's premier annual
+        event, and we value your partnership as you
+        gain visibility and create awareness and gain
+        visibility for their brands.
       </p>
     </div>
    </section>
@@ -37,7 +42,7 @@ export default function Home() {
           <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600">
             <div className="relative w-[100%] h-[100%]">
               <Image
-                src="/assets/img/4by3/01.png"
+                src="/assets/img/4by3/01.jpg"
                 alt="Full Cover Image"
                 layout="fill"
                 objectFit="cover"
@@ -81,7 +86,7 @@ export default function Home() {
           <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600">
             <div className="relative w-[100%] h-[100%]">
               <Image
-                src="/assets/img/4by3/02.png"
+                src="/assets/img/4by3/01.jpg"
                 alt="Full Cover Image"
                 layout="fill"
                 objectFit="cover"
@@ -92,17 +97,32 @@ export default function Home() {
       </div>
     </section>
 
-    {/* OTHER SPEAKERS */}
-    <section className="w-full bg-gray-50 flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">
-      <h1 className="font-extrabold text-[3rem] font-serif">Other Speakers</h1>
+    {/* Organising Committee */}
+    <section className="w-full bg-gray-100 flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">
+      <h1 className="font-extrabold text-[3rem] font-serif">Organising Committee</h1>
       <hr className="w-[8rem] border-b border-8 border-teal-900" />
     </section>
 
-    <section className="pb-[5rem] bg-gray-50">
+    <section className="pb-[5rem] bg-gray-100">
        <div className="mx-auto w-[92%]">
-        <CarouselSpeakers />
+        <CarouselSpeakers dbData={Organisers} />
        </div>
     </section>
+
+
+    {/* Secretariat */}
+    <section className="w-full bg-white flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">
+      <h1 className="font-extrabold text-[3rem] font-serif">Secretariat</h1>
+      <hr className="w-[8rem] border-b border-8 border-teal-900" />
+    </section>
+
+    <section className="pb-[5rem]">
+       <div className="mx-auto w-[92%]">
+        <CarouselSpeakers dbData={Secretariat} />
+       </div>
+    </section>
+
+
 
     <RegisterArea />
 

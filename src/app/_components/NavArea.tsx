@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -31,12 +32,22 @@ export default function NavArea() {
         <section className='w-full lg:block hidden bg-white drop-shadow'>
             <div className='mx-auto w-[92%] flex items-center justify-between py-6'>
                 <div className='flex-1'>
-                    <Link href="/">
-                    <h1 className='text-[2rem] uppercase'>
+                    {/* <h1 className='text-[2rem] uppercase'>
                         <span className='mr-2 font-extrabold'>IIA</span>
                         <span className='text-teal-700 font-light'>Conference</span>
-                    </h1>
+                    </h1> */}
+
+                    <Link href="/">
+                        <div className="h-[50px] aspect-[3.5/1] relative">
+                            <Image
+                            src="/assets/img/logo.jpg"
+                            fill
+                            alt="Company Logo"
+                            className="object-fill w-[100%]"
+                            /> 
+                        </div>
                     </Link>
+                    
                 </div>
                 <div className='flex-3 flex items-center justify-end'>
                     <ul className='flex items-center justify-end gap-5'>

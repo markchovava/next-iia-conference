@@ -1,6 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
 import { FaMapLocation } from "react-icons/fa6";
+import { MdOutlineDateRange } from "react-icons/md";
+
 
 export default function FooterArea() {
   return (
@@ -9,25 +12,45 @@ export default function FooterArea() {
         <div className="mx-auto w-[92%] grid lg:grid-cols-3 grid-cols-1 gap-8 lg:gap-4 pb-[3rem]">
             <div>
                 <Link href="/">
-                <h1 className='text-[2rem] uppercase'>
-                    <span className='mr-2 font-extrabold'>IIA</span>
-                    <span className='text-teal-700 font-light'>Conference</span>
-                </h1>
+                    <div className="h-[50px] aspect-[3.5/1] relative">
+                        <Image
+                        src="/assets/img/logo.jpg"
+                        fill
+                        alt="Company Logo"
+                        className="object-fill w-[100%]"
+                        /> 
+                    </div>
                 </Link>
             </div>
             <div>
                 <h3 className='font-semibold font-serif text-[2rem] mb-2'>Venue</h3>
-                <div className='flex items-center justify-start gap-2'>
+                <div className='flex items-center justify-start gap-2 mb-4'>
                     <p><FaMapLocation className='text-[2rem]' /></p>
-                    <p className='text-lg'>1 First Street, Harare, Zimbabwe</p>
+                    <p className='text-lg'>
+                        Elephant Hills, Victoria Falls</p>
                 </div>
+                <div className='flex items-center justify-start gap-2'>
+                    <p><MdOutlineDateRange className='text-[2rem]' /></p>
+                    <p className='text-lg'>
+                        9 - 13 September 2025</p>
+                </div>
+
             </div>
 
-            <div className='flex items-center lg:justify-end justify-center'>
-                 <Link href="#register">
-                    <button className='font-medium rounded-md transition-al ease-in-out bg-teal-700 text-white hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-900 hover:drop-shadow px-6 py-3'>
-                    Register</button>
-                </Link>
+            <div>
+                <h3 className='font-semibold font-serif text-[2rem] mb-2'>Contacts Details</h3>
+                <div className='flex items-center justify-start gap-2 mb-6'>
+                    <p><FaMapLocation className='text-[2rem]' /></p>
+                    <p className='text-lg'>
+                        Elephant Hills, Victoria Falls</p>
+
+                </div>
+                <div className='flex items-center justify-start'>
+                    <Link href="#register">
+                        <button className='font-medium rounded-md transition-al ease-in-out bg-teal-700 text-white hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-900 hover:drop-shadow px-6 py-3'>
+                        Register</button>
+                    </Link>
+                </div>
             </div>
         </div>
 
