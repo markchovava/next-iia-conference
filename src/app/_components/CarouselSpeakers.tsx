@@ -133,7 +133,7 @@ export default function CarouselSpeakers({ dbData }: CarouselSpeakersProps) {
         {data.map((i, key) => (
           <SwiperSlide key={key} className='pt-4 pb-2 px-2'>
             <section className='w-[100%] rounded-xl bg-white ease-linear transition-all drop-shadow hover:drop-shadow-lg'>
-                <div className='bg-gray-300 overflow-hidden w-[100%] rounded-t-xl lg:aspect-[1/1] aspect-[5/3] flex items-center justify-center'>
+                <div className='bg-gray-300 overflow-hidden w-[100%] rounded-t-xl lg:aspect-[1/1] aspect-[5/4] flex items-center justify-center'>
                      <div className="relative w-[100%] h-[100%]">
                         <Image
                           src={i?.img}
