@@ -5,6 +5,7 @@ import RegisterArea from "./_components/RegisterArea";
 import PackageArea from "./_components/PackageArea";
 import { Organisers } from "@/_data/Organisers";
 import { Secretariat } from "@/_data/Secretariat";
+import { Speaker1 } from "@/_data/Speakers";
 
 
 
@@ -39,35 +40,29 @@ export default function Home() {
     <section  className="pb-[5rem] pt-[3rem]">
       <div className="mx-auto w-[92%] flex md:flex-row flex-col items-center justify-start gap-8">
         <div className="lg:w-[40%] w-[92%]">
-          <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600">
+          <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600 drop-shadow">
             <div className="relative w-[100%] h-[100%]">
               <Image
-                src="/assets/img/4by3/01.jpg"
+                src={Speaker1.img}
                 alt="Full Cover Image"
-                layout="fill"
-                objectFit="cover"
+                width={800}
+                height={600}
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
         </div>
         <div className="lg:w-[60%] w-[100%]">
-          <h2 className="text-[2rem] mb-3 font-serif">Dr. J. P. Konangale</h2>
+          <h2 className="text-[2rem] mb-3 font-serif">{Speaker1.name}</h2>
           <p className="text-md font-light">
-            Dr. J. P. Konangale is a highly accomplished and results-driven internal audit 
-            professional with 15 years of progressive experience in risk management, compliance, 
-            and operational excellence. Holding a Ph.D. in Accounting, 
-            Finance and Business Administration, Dr. J. P. Konangale brings a unique blend of deep 
-            academic understanding and extensive practical expertise to complex audit challenges. 
-            They possess a proven track record of leading high-performing audit teams, developing 
-            robust audit methodologies, and delivering strategic insights that drive business value 
-            and mitigate organizational risk.
+           {Speaker1.description}
           </p>
         </div>
       </div>
     </section>
 
     {/* SPEAKER */}
-    <section className="pb-[5rem] ">
+    {/* <section className="pb-[5rem] ">
       <div className="mx-auto w-[92%] flex md:flex-row flex-col items-center justify-start gap-8">
         <div className="lg:w-[60%] w-[100%]">
           <h2 className="text-[2rem] mb-3 font-serif">Dr. J. P. Konangale</h2>
@@ -95,7 +90,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
 
     {/* Organising Committee */}
     <section className="w-full bg-gray-100 flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">

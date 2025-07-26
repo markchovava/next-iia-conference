@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
-import { FaMapLocation } from "react-icons/fa6";
+import { FaMapLocation, FaPhone } from "react-icons/fa6";
 import { MdOutlineDateRange } from "react-icons/md";
 
 
@@ -40,9 +40,9 @@ export default function FooterArea() {
             <div>
                 <h3 className='font-semibold font-serif text-[2rem] mb-2'>Contacts Details</h3>
                 <div className='flex items-center justify-start gap-2 mb-6'>
-                    <p><FaMapLocation className='text-[2rem]' /></p>
+                    <p><FaPhone className='text-[2rem]' /></p>
                     <p className='text-lg'>
-                        Elephant Hills, Victoria Falls</p>
+                        +0774163667, 08677111207, 263 242 313286/7</p>
 
                 </div>
                 <div className='flex items-center justify-start'>
