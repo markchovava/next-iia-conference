@@ -42,7 +42,7 @@ export default function FooterArea() {
                 <div className='flex items-center justify-start gap-2 mb-6'>
                     <p><FaPhone className='text-[2rem]' /></p>
                     <p className='text-lg'>
-                        +0774163667, 08677111207, 263 242 313286/7</p>
+                        +263 774 163667, +263 8677 111207, +263 242 313286/7</p>
 
                 </div>
                 <div className='flex items-center justify-start'>
