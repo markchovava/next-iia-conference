@@ -38,7 +38,7 @@ export default function FooterArea() {
             </div>
 
             <div>
-                <h3 className='font-semibold font-serif text-[2rem] mb-2'>Contacts Details</h3>
+                <h3 className='font-semibold font-serif text-[2rem] mb-2'>Contact Details</h3>
                 <div className='flex items-center justify-start gap-2 mb-6'>
                     <p><FaPhone className='text-[2rem]' /></p>
                     <p className='text-lg'>
