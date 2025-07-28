@@ -305,7 +305,7 @@ export default function RegisterArea() {
                             value={data.shirtSize}
                             onChange={handleInput}
                             disabled={isSubmitting}
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-800 disabled:cursor-not-allowed ${
                                 errors.shirtSize ? 'border-red-400 bg-red-50' : 'border-gray-400'
                             }`}
                             aria-invalid={!!errors.shirtSize}
@@ -360,7 +360,7 @@ export default function RegisterArea() {
                             value={data.membershipStatus}
                             onChange={handleInput}
                             disabled={isSubmitting}
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-800 disabled:cursor-not-allowed ${
                                 errors.membershipStatus ? 'border-red-400 bg-red-50' : 'border-gray-400'
                             }`}
                             aria-invalid={!!errors.membershipStatus}
