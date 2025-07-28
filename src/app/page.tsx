@@ -25,7 +25,7 @@ export default function Home() {
         conference is the institute's premier annual
         event, and we value your partnership as you
         gain visibility and create awareness and gain
-        visibility for their brands.
+        visibility for your brand.
       </p>
     </div>
    </section>
