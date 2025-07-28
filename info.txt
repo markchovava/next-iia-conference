@@ -1,0 +1,10 @@
+npm install @emailjs/browser
+
+
+emailjs.send("service_3i9xn6g","template_nf4otm9",{
+title: "REG",
+name: "Mark",
+time: "10.00am",
+message: "test",
+email: "markchovava@gmail.com",
+});

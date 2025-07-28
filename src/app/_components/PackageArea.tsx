@@ -1,3 +1,5 @@
+
+import Link from 'next/link'
 import React from 'react'
 
 export default function PackageArea() {
@@ -26,8 +28,10 @@ export default function PackageArea() {
                     </li>
                 </ul>
                 <div className='flex items-center justify-center pb-6'>
+                     <Link href='#register'>
                     <button className='px-8 py-3 cursor-pointer rounded-xl text-gray-300 bg-gradient-to-br from-teal-600 to-teal-950 hover:drop-shadow-lg hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-950'>
                         Order Ticket Now</button>
+                    </Link>
                 </div>
             </div>
 
@@ -46,8 +50,10 @@ export default function PackageArea() {
                     </li>
                 </ul>
                 <div className='flex items-center justify-center pb-6'>
+                     <Link href='#register'>
                     <button className='px-8 py-3 cursor-pointer rounded-xl text-gray-300 bg-gradient-to-br from-teal-600 to-teal-950 hover:drop-shadow-lg hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-950'>
                         Order Ticket Now</button>
+                    </Link>
                 </div>
             </div>
 
@@ -66,8 +72,10 @@ export default function PackageArea() {
                     </li>
                 </ul>
                 <div className='flex items-center justify-center pb-6'>
+                    <Link href='#register'>
                     <button className='px-8 py-3 cursor-pointer rounded-xl text-gray-300 bg-gradient-to-br from-teal-600 to-teal-950 hover:drop-shadow-lg hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-950'>
                         Order Ticket Now</button>
+                    </Link>
                 </div>
             </div>
 

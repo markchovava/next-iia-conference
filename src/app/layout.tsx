@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavArea from "./_components/NavArea";
-import TopArea from "./_components/TopArea";
 import FooterArea from "./_components/FooterArea";
 import HeaderArea from "./_components/HeaderArea";
-
+/* ToastContainer */
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export const metadata: Metadata = {
@@ -24,6 +24,18 @@ export default function RootLayout({
           <HeaderArea />
           {children}
           <FooterArea />
+          <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored" 
+            />
       </body>
     </html>
   );
