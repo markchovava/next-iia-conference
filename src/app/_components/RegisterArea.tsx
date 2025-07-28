@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser';
 import { fullFormattedDate } from "@/_utils/formatDate";
 import { reactToastifyDark } from "@/_utils/reactToastify";
 import { toast } from 'react-toastify';
+import { MembershipData } from '@/_data/sample/MembershipData';
+import { ShirtSizeData } from '@/_data/sample/ShirtSizeData';
 
 
 interface RegData {
@@ -310,13 +312,9 @@ export default function RegisterArea() {
                             aria-describedby={errors.shirtSize ? "shirtSize-error" : undefined}
                         >
                             <option value="">Shirt Size...</option>
-                            <option value="xs">XS</option>
-                            <option value="s">S</option>
-                            <option value="m">M</option>
-                            <option value="l">L</option>
-                            <option value="xl">XL</option>
-                            <option value="xxl">XXL</option>
-                            <option value="xxxl">XXXL</option>
+                            {ShirtSizeData.map((i, key) => (
+                                <option key={key} value={i.name}>{i.name}</option>
+                            ))}
                         </select>
                         {errors.shirtSize && (
                             <p id="shirtSize-error" className='text-sm text-red-500 mt-1' role="alert">
@@ -369,11 +367,9 @@ export default function RegisterArea() {
                             aria-describedby={errors.membershipStatus ? "membershipStatus-error" : undefined}
                         >
                             <option value="">Membership Status...</option>
-                            <option value="active">Active Member</option>
-                            <option value="inactive">Inactive Member</option>
-                            <option value="new">New Member</option>
-                            <option value="guest">Guest</option>
-                            <option value="alumni">Alumni</option>
+                            {MembershipData.map((i, key) => (
+                                <option key={key} value={i.name}>{i.name}</option>
+                            ))}
                         </select>
                         {errors.membershipStatus && (
                             <p id="membershipStatus-error" className='text-sm text-red-500 mt-1' role="alert">
