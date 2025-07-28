@@ -69,7 +69,7 @@ export default function NavArea() {
                         </li>
                         <li className='font-medium rounded-md transition-al ease-in-out bg-teal-700 text-white hover:bg-gradient-to-br hover:from-teal-700 hover:to-green-800 hover:drop-shadow px-4 py-2 cursor-pointer'
                             onClick={() => smoothScrollTo('register')}>
-                            Register
+                            Order Ticket
                         </li>
                     </ul>
                 </div>

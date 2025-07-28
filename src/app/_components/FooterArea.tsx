@@ -48,7 +48,7 @@ export default function FooterArea() {
                 <div className='flex items-center justify-start'>
                     <Link href="#register">
                         <button className='font-medium rounded-md transition-al ease-in-out bg-teal-700 text-white hover:bg-gradient-to-br hover:from-teal-700 hover:to-teal-900 hover:drop-shadow px-6 py-3'>
-                        Register</button>
+                        Order Ticket</button>
                     </Link>
                 </div>
             </div>
