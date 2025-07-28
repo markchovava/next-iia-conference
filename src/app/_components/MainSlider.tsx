@@ -20,21 +20,14 @@ const slideData = [
     image: '/assets/img/01.png',
     title: 'Welcome to our Conference Website',
     description: 'Register Now and Secure Your Future in Internal Audit!',
-    ctaText: 'Register Now'
+    ctaText: 'Order Ticket'
   },
   {
     id: 2,
     image: '/assets/img/02.png',
     title: 'Connect, Collaborate, Conquer',
     description: 'The Premier Internal Audit Conference in Zimbabwe.',
-    ctaText: 'Register Now'
-  },
-  {
-    id: 3,
-    image: '/assets/img/03.png',
-    title: 'We are excited to hear from you',
-    description: 'Talk to us.',
-    ctaText: 'Contact Us'
+    ctaText: 'Order Ticket'
   },
 ];
 
