@@ -5,31 +5,35 @@ import { fullFormattedDate } from "@/_utils/formatDate";
 import { reactToastifyDark } from "@/_utils/reactToastify";
 import { toast } from 'react-toastify';
 
+
 interface RegData {
     name: string
     phone: string
     email: string
-    gender: string
-    occupation: string
+    organization: string
     created?: object
     updated?: object
+    membershipStatus?: string
+    shirtSize?: string
 }
 
 interface ValidationErrors {
     name?: string
     phone?: string
     email?: string
-    gender?: string
-    occupation?: string
+    organization?: string
     general?: string
+    membershipStatus?: string
+    shirtSize?: string
 }
 
 const DataInput: RegData = {
     name: '',
     phone: '',
     email: '',
-    gender: '',
-    occupation: '',
+    organization: '',
+    membershipStatus: '',
+    shirtSize: '',
     created: {},
     updated: {},
 }
@@ -74,6 +78,8 @@ export default function RegisterArea() {
         // Phone validation
         if (!data.phone?.trim()) {
             newErrors.phone = "Phone number is required.";
+        } else if (!PHONE_REGEX.test(data.phone.trim())) {
+            newErrors.phone = "Please enter a valid phone number.";
         }
 
         // Email validation
@@ -83,11 +89,21 @@ export default function RegisterArea() {
             newErrors.email = "Please enter a valid email address.";
         }
 
-        // Occupation validation
-        if (!data.occupation?.trim()) {
-            newErrors.occupation = "Occupation is required.";
-        } else if (data.occupation.trim().length < 2) {
-            newErrors.occupation = "Occupation must be at least 2 characters long.";
+        // Organization validation
+        if (!data.organization?.trim()) {
+            newErrors.organization = "Organization is required.";
+        } else if (data.organization.trim().length < 2) {
+            newErrors.organization = "Organization must be at least 2 characters long.";
+        }
+
+        // Membership Status validation
+        if (!data.membershipStatus?.trim()) {
+            newErrors.membershipStatus = "Membership status is required.";
+        }
+
+        // Shirt Size validation
+        if (!data.shirtSize?.trim()) {
+            newErrors.shirtSize = "Shirt size is required.";
         }
 
         setErrors(newErrors);
@@ -119,7 +135,9 @@ export default function RegisterArea() {
                 Name: ${data.name.trim()}
                 Phone: ${data.phone.trim()}
                 Email: ${data.email.trim()}
-                Occupation: ${data.occupation.trim()}
+                Organization: ${data.organization.trim()}
+                Membership Status: ${data.membershipStatus?.trim() || ''}
+                Shirt Size: ${data.shirtSize?.trim() || ''}
             `.trim();
 
             const emailData = {
@@ -208,8 +226,8 @@ export default function RegisterArea() {
                             value={data.name}
                             onChange={handleInput}
                             disabled={isSubmitting}
-                            placeholder='Enter Full Name...' 
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3  disabled:cursor-not-allowed ${
+                            placeholder='Full Name...' 
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
                                 errors.name ? 'border-red-400 bg-red-50' : 'border-gray-400'
                             }`}
                             aria-invalid={!!errors.name}
@@ -235,8 +253,8 @@ export default function RegisterArea() {
                                 value={data.phone}
                                 onChange={handleInput}
                                 disabled={isSubmitting}
-                                placeholder='Enter Phone Number...' 
-                                className={`w-[100%] outline-none border rounded-lg px-5 py-3   disabled:cursor-not-allowed ${
+                                placeholder='Phone Number (eg. +263772123456)...' 
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
                                     errors.phone ? 'border-red-400 bg-red-50' : 'border-gray-400'
                                 }`}
                                 aria-invalid={!!errors.phone}
@@ -259,8 +277,8 @@ export default function RegisterArea() {
                                 value={data.email}
                                 onChange={handleInput}
                                 disabled={isSubmitting}
-                                placeholder='Enter Email...' 
-                                className={`w-[100%] outline-none border rounded-lg px-5 py-3   disabled:cursor-not-allowed ${
+                                placeholder='Email...' 
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
                                     errors.email ? 'border-red-400 bg-red-50' : 'border-gray-400'
                                 }`}
                                 aria-invalid={!!errors.email}
@@ -274,29 +292,92 @@ export default function RegisterArea() {
                         </div>
                     </div>
 
-
-                    {/* OCCUPATION */}
+                    {/* SHIRT SIZE */}
                     <div className='w-[100%] mb-6'>
-                        <label htmlFor="occupation" className='mb-2 block'>
-                            Occupation: <span className="text-red-400">*</span>
+                        <label htmlFor="shirtSize" className='mb-2 block'>
+                            Shirt Size: <span className="text-red-400">*</span>
                         </label>
-                        <input 
-                            id="occupation"
-                            type='text'
-                            name='occupation' 
-                            value={data.occupation}
+                        <select 
+                            id="shirtSize"
+                            name='shirtSize'
+                            value={data.shirtSize}
                             onChange={handleInput}
                             disabled={isSubmitting}
-                            placeholder='Enter Occupation...' 
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3   disabled:cursor-not-allowed ${
-                                errors.occupation ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                                errors.shirtSize ? 'border-red-400 bg-red-50' : 'border-gray-400'
                             }`}
-                            aria-invalid={!!errors.occupation}
-                            aria-describedby={errors.occupation ? "occupation-error" : undefined}
+                            aria-invalid={!!errors.shirtSize}
+                            aria-describedby={errors.shirtSize ? "shirtSize-error" : undefined}
+                        >
+                            <option value="">Shirt Size...</option>
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                            <option value="xxxl">XXXL</option>
+                        </select>
+                        {errors.shirtSize && (
+                            <p id="shirtSize-error" className='text-sm text-red-500 mt-1' role="alert">
+                                {errors.shirtSize}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* ORGANIZATION */}
+                    <div className='w-[100%] mb-6'>
+                        <label htmlFor="organization" className='mb-2 block'>
+                            Organization: <span className="text-red-400">*</span>
+                        </label>
+                        <input 
+                            id="organization"
+                            type='text'
+                            name='organization' 
+                            value={data.organization}
+                            onChange={handleInput}
+                            disabled={isSubmitting}
+                            placeholder='Organization...' 
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                                errors.organization ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                            }`}
+                            aria-invalid={!!errors.organization}
+                            aria-describedby={errors.organization ? "organization-error" : undefined}
                         />
-                        {errors.occupation && (
-                            <p id="occupation-error" className='text-sm text-red-500 mt-1' role="alert">
-                                {errors.occupation}
+                        {errors.organization && (
+                            <p id="organization-error" className='text-sm text-red-500 mt-1' role="alert">
+                                {errors.organization}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* MEMBERSHIP STATUS */}
+                    <div className='w-[100%] mb-6'>
+                        <label htmlFor="membershipStatus" className='mb-2 block'>
+                            Membership Status: <span className="text-red-400">*</span>
+                        </label>
+                        <select 
+                            id="membershipStatus"
+                            name='membershipStatus'
+                            value={data.membershipStatus}
+                            onChange={handleInput}
+                            disabled={isSubmitting}
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                                errors.membershipStatus ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                            }`}
+                            aria-invalid={!!errors.membershipStatus}
+                            aria-describedby={errors.membershipStatus ? "membershipStatus-error" : undefined}
+                        >
+                            <option value="">Membership Status...</option>
+                            <option value="active">Active Member</option>
+                            <option value="inactive">Inactive Member</option>
+                            <option value="new">New Member</option>
+                            <option value="guest">Guest</option>
+                            <option value="alumni">Alumni</option>
+                        </select>
+                        {errors.membershipStatus && (
+                            <p id="membershipStatus-error" className='text-sm text-red-500 mt-1' role="alert">
+                                {errors.membershipStatus}
                             </p>
                         )}
                     </div>
