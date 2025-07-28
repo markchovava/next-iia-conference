@@ -176,7 +176,7 @@ export default function RegisterArea() {
                 <form onSubmit={postData} noValidate className='text-gray-200'>
                     <div className='flex flex-col items-center justify-center mb-8'>
                         <h1 className='font-extrabold text-[3rem] leading-[3rem] text-center text-gray-100 mb-2'>
-                            ORDERING FORM
+                            ORDER TICKET FORM
                         </h1>
                         <p className='text-sm mb-3 text-gray-400'>Kindly fill up the form and submit, we will contact you shortly.</p>
                         <hr className="w-[8rem] border-b border-8 border-teal-700" />
