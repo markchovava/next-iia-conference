@@ -11,9 +11,9 @@ export default function TopArea() {
   return (
     <>
    <section className='w-full border-b border-gray-100 md:py-3 py-4'>
-           <div className=' w-[92%] mx-auto flex md:flex-row  items-center justify-between gap-2'>
+           <div className=' w-[92%] mx-auto flex md:flex-row flex-col  items-center justify-between lg:gap-2 gap-6'>
                {/*  */}
-               <div className='flex flex-row items-center justify-start md:gap-3 gap-1 text-sm'>
+               <div className='flex lg:flex-row flex-col items-center justify-start md:gap-3 lg:gap-1 gap-3 text-sm'>
                    <div className='flex items-center justify-start gap-1'>
                        <FaMapLocationDot className='text-teal-900 text-md' />
                        <span>Cnr Adylinn/Marlborough Drive, Marlborough, Harare, Zimbabwe</span>
