@@ -131,10 +131,10 @@ export default function RegisterArea() {
             };
 
             const response = await emailjs.send(
-                "service_3i9xn6g",
-                "template_nf4otm9",
+                "service_womx366",
+                "template_f4lq602",
                 emailData,
-                'tUnH-E1xeMIdTe9_o'
+                'YO9ODOGz2tC6xxXM4'
             );
 
             if (response.status === 200) {
@@ -191,7 +191,7 @@ export default function RegisterArea() {
 
                     {/* General Error */}
                     {errors.general && (
-                        <div className='mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg'>
+                        <div className='mb-6 p-4 border border-red-400 text-red-700 rounded-lg'>
                             {errors.general}
                         </div>
                     )}
