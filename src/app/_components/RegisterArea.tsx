@@ -12,6 +12,7 @@ interface RegData {
     name: string
     phone: string
     email: string
+    gender: string
     organization: string
     created?: object
     updated?: object
@@ -24,6 +25,7 @@ interface ValidationErrors {
     phone?: string
     email?: string
     organization?: string
+    gender?: string
     general?: string
     membershipStatus?: string
     shirtSize?: string
@@ -36,6 +38,7 @@ const DataInput: RegData = {
     organization: '',
     membershipStatus: '',
     shirtSize: '',
+    gender: '',
     created: {},
     updated: {},
 }
@@ -103,6 +106,11 @@ export default function RegisterArea() {
             newErrors.membershipStatus = "Membership status is required.";
         }
 
+         // Gender validation
+        if (!data.gender?.trim()) {
+            newErrors.gender = "Gender is required.";
+        }
+
         // Shirt Size validation
         if (!data.shirtSize?.trim()) {
             newErrors.shirtSize = "Shirt size is required.";
@@ -139,11 +147,12 @@ export default function RegisterArea() {
                 Email: ${data.email.trim()}
                 Organization: ${data.organization.trim()}
                 Membership Status: ${data.membershipStatus?.trim() || ''}
+                Gender: ${data.gender?.trim()}
                 Shirt Size: ${data.shirtSize?.trim() || ''}
             `.trim();
 
             const emailData = {
-                title: "ATTENDANCE INQUIRY",
+                title: "ATTENDANCE TICKET REQUEST",
                 name: data.name.trim(),
                 time: fullFormattedDate(currentDate),
                 message: body,
@@ -294,6 +303,34 @@ export default function RegisterArea() {
                         </div>
                     </div>
 
+                    {/* GENDER */}
+                    <div className='w-[100%] mb-6'>
+                        <label htmlFor="gender" className='mb-2 block'>
+                            Gender: <span className="text-red-400">*</span>
+                        </label>
+                        <select 
+                            id="gender"
+                            name='gender'
+                            value={data.gender}
+                            onChange={handleInput}
+                            disabled={isSubmitting}
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
+                                errors.gender ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                            }`}
+                            aria-invalid={!!errors.gender}
+                            aria-describedby={errors.gender ? "gender-error" : undefined}>
+                            <option value="">Gender...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            
+                        </select>
+                        {errors.gender && (
+                            <p id="gender-error" className='text-sm text-red-500 mt-1' role="alert">
+                                {errors.gender}
+                            </p>
+                        )}
+                    </div>
+
                     {/* SHIRT SIZE */}
                     <div className='w-[100%] mb-6'>
                         <label htmlFor="shirtSize" className='mb-2 block'>
@@ -377,6 +414,7 @@ export default function RegisterArea() {
                             </p>
                         )}
                     </div>
+
                     
                     {/* SUBMIT BUTTON */}
                     <div className='w-[100%] mb-2'>
