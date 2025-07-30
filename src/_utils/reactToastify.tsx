@@ -1,8 +1,8 @@
 import { Bounce } from "react-toastify";
-
+import type { ToastPosition } from "react-toastify";
 
 export const reactToastifyDark = {
-    position: "top-right",
+    position: "top-right" as ToastPosition,
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -11,4 +11,4 @@ export const reactToastifyDark = {
     progress: undefined,
     theme: "dark",
     transition: Bounce,
-  };
+};

@@ -6,42 +6,13 @@ import { reactToastifyDark } from "@/_utils/reactToastify";
 import { toast } from 'react-toastify';
 import { MembershipData } from '@/_data/sample/MembershipData';
 import { ShirtSizeData } from '@/_data/sample/ShirtSizeData';
+import { useOrderStore } from '@/_store/useOrderStore';
+import { OrderInterface } from '@/_data/OrderData';
+import { PackagesData } from '@/_data/PackagesData';
 
 
-interface RegData {
-    name: string
-    phone: string
-    email: string
-    gender: string
-    organization: string
-    created?: object
-    updated?: object
-    membershipStatus?: string
-    shirtSize?: string
-}
 
-interface ValidationErrors {
-    name?: string
-    phone?: string
-    email?: string
-    organization?: string
-    gender?: string
-    general?: string
-    membershipStatus?: string
-    shirtSize?: string
-}
 
-const DataInput: RegData = {
-    name: '',
-    phone: '',
-    email: '',
-    organization: '',
-    membershipStatus: '',
-    shirtSize: '',
-    gender: '',
-    created: {},
-    updated: {},
-}
 
 const currentDate = new Date();
 
@@ -52,32 +23,38 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PHONE_REGEX = /^[\+]?[1-9][\d]{0,15}$/;
 
 export default function RegisterArea() {
-    const [data, setData] = useState<RegData>(DataInput)
-    const [errors, setErrors] = useState<ValidationErrors>({})
+    const { data, setData, resetData } = useOrderStore();
+    const [errors, setErrors] = useState<OrderInterface>({})
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitSuccess, setSubmitSuccess] = useState(false)
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        
-        setData(prev => ({ ...prev, [name]: value }));
-        
-        // Clear error for this field when user starts typing
-        if (errors[name as keyof ValidationErrors]) {
+        setData(name as keyof OrderInterface, value);
+        if (errors[name as keyof OrderInterface]) {
             setErrors(prev => ({ ...prev, [name]: undefined }));
         }
-    }
+    };
 
     const validateForm = (): boolean => {
-        const newErrors: ValidationErrors = {};
+        const newErrors: OrderInterface = {};
 
-        // Name validation
-        if (!data.name?.trim()) {
-            newErrors.name = "Full name is required.";
-        } else if (data.name.trim().length < 2) {
-            newErrors.name = "Name must be at least 2 characters long.";
-        } else if (data.name.trim().length > 50) {
-            newErrors.name = "Name must be less than 50 characters.";
+        // First Name validation
+        if (!data.firstName?.trim()) {
+            newErrors.firstName = "First Name is required.";
+        } else if (data.firstName.trim().length < 2) {
+            newErrors.firstName = "First Name must be at least 2 characters long.";
+        } else if (data.firstName.trim().length > 50) {
+            newErrors.firstName = "First Name must be less than 50 characters.";
+        }
+
+         // Last Name validation
+        if (!data.lastName?.trim()) {
+            newErrors.lastName = "Last Name is required.";
+        } else if (data.lastName.trim().length < 2) {
+            newErrors.lastName = "Last Name must be at least 2 characters long.";
+        } else if (data.lastName.trim().length > 50) {
+            newErrors.lastName = "Last Name must be less than 50 characters.";
         }
 
         // Phone validation
@@ -121,7 +98,7 @@ export default function RegisterArea() {
     }
 
     const resetForm = () => {
-        setData(DataInput);
+        resetData();
         setErrors({});
         setSubmitSuccess(false);
     }
@@ -142,22 +119,27 @@ export default function RegisterArea() {
             }
 
             const body = `
-                Name: ${data.name.trim()}
+                First Name: ${data.firstName.trim() ?? ''}
+                Last Name: ${data.lastName.trim()}
                 Phone: ${data.phone.trim()}
                 Email: ${data.email.trim()}
                 Organization: ${data.organization.trim()}
                 Membership Status: ${data.membershipStatus?.trim() || ''}
                 Gender: ${data.gender?.trim()}
                 Shirt Size: ${data.shirtSize?.trim() || ''}
+                Package:  ${data.package?.trim()}
             `.trim();
 
             const emailData = {
                 title: "ATTENDANCE TICKET REQUEST",
-                name: data.name.trim(),
+                name: `${data.firstName.trim()} ${data.lastName.trim()}`,
                 time: fullFormattedDate(currentDate),
                 message: body,
                 email: data.email.trim(),
             };
+
+            console.log('emailData', data)
+            setSubmitSuccess(true);
 
             const response = await emailjs.send(
                 "service_womx366",
@@ -178,9 +160,7 @@ export default function RegisterArea() {
 
         } catch (error) {
             console.error('Registration error:', error);
-            
             let errorMessage = "Something went wrong. Please try again.";
-            
             // Handle specific error types
             if (error instanceof Error) {
                 if (error.message.includes('network') || error.message.includes('fetch')) {
@@ -191,13 +171,13 @@ export default function RegisterArea() {
                     errorMessage = "Invalid data submitted. Please check your information.";
                 }
             }
-            
-            setErrors({ general: errorMessage });
             toast.error(errorMessage, reactToastifyDark);
         } finally {
             setIsSubmitting(false);
         }
+
     }
+
 
     return (
         <section id="register" className='w-full bg-teal-950 text-gray-300 pt-[4rem] pb-[6rem]'>
@@ -218,37 +198,87 @@ export default function RegisterArea() {
                         </div>
                     )}
 
-                    {/* General Error */}
-                    {errors.general && (
-                        <div className='mb-6 p-4 border border-red-400 text-red-700 rounded-lg'>
-                            {errors.general}
-                        </div>
-                    )}
 
-                    {/* FULL NAME */}
-                    <div className='mb-6'>
-                        <label htmlFor="name" className='mb-2 block'>
-                            Full Name: <span className="text-red-400">*</span>
+                    {/* PACKAGES */}
+                    <div className='w-[100%] mb-6'>
+                        <label htmlFor="package" className='mb-2 block'>
+                            Package: <span className="text-red-400">*</span>
                         </label>
-                        <input 
-                            id="name"
-                            type='text'
-                            name='name' 
-                            value={data.name}
+                        <select 
+                            id="package"
+                            name='package'
+                            value={data.package}
                             onChange={handleInput}
                             disabled={isSubmitting}
-                            placeholder='Full Name...' 
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
-                                errors.name ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
+                                errors.package ? 'border-red-400 bg-red-50' : 'border-gray-400'
                             }`}
-                            aria-invalid={!!errors.name}
-                            aria-describedby={errors.name ? "name-error" : undefined}
-                        />
-                        {errors.name && (
-                            <p id="name-error" className='text-sm text-red-500 mt-1' role="alert">
-                                {errors.name}
+                            aria-invalid={!!errors.package}
+                            aria-describedby={errors.package ? "package-error" : undefined} >
+                                <option value="">Package...</option>
+                                { PackagesData.map((i, key) => (
+                                    <option key={key} value={i.title}>{i.title}</option>
+                                )) }
+                        </select>
+                        {errors.package && (
+                            <p id="shirtSize-error" className='text-sm text-red-500 mt-1' role="alert">
+                                {errors.package}
                             </p>
                         )}
+                    </div>
+
+                    {/* FULL NAME */}
+                    <div className='mb-6 grid grid-cols-2 gap-4'>
+                        <div className=''>
+                            <label htmlFor="firstName" className='mb-2 block'>
+                                First Name: <span className="text-red-400">*</span>
+                            </label>
+                            <input 
+                                id="firstName"
+                                type='text'
+                                name='firstName' 
+                                value={data.firstName}
+                                onChange={handleInput}
+                                disabled={isSubmitting}
+                                placeholder='Full Name...' 
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                                    errors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                                }`}
+                                aria-invalid={!!errors.firstName}
+                                aria-describedby={errors.firstName ? "firstName-error" : undefined}
+                            />
+                            {errors.firstName && (
+                                <p id="firstName-error" className='text-sm text-red-500 mt-1' role="alert">
+                                    {errors.firstName}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className=''>
+                            <label htmlFor="lastName" className='mb-2 block'>
+                                Last Name: <span className="text-red-400">*</span>
+                            </label>
+                            <input 
+                                id="lastName"
+                                type='text'
+                                name='lastName' 
+                                value={data.lastName}
+                                onChange={handleInput}
+                                disabled={isSubmitting}
+                                placeholder='Last Name...' 
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-400 disabled:cursor-not-allowed ${
+                                    errors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                                }`}
+                                aria-invalid={!!errors.lastName}
+                                aria-describedby={errors.lastName ? "lastName-error" : undefined}
+                            />
+                            {errors.lastName && (
+                                <p id="lastName-error" className='text-sm text-red-500 mt-1' role="alert">
+                                    {errors.lastName}
+                                </p>
+                            )}
+                        </div>
+
                     </div>
 
                     {/* PHONE AND EMAIL */}
@@ -331,34 +361,67 @@ export default function RegisterArea() {
                         )}
                     </div>
 
-                    {/* SHIRT SIZE */}
-                    <div className='w-[100%] mb-6'>
-                        <label htmlFor="shirtSize" className='mb-2 block'>
-                            Shirt Size: <span className="text-red-400">*</span>
-                        </label>
-                        <select 
-                            id="shirtSize"
-                            name='shirtSize'
-                            value={data.shirtSize}
-                            onChange={handleInput}
-                            disabled={isSubmitting}
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
-                                errors.shirtSize ? 'border-red-400 bg-red-50' : 'border-gray-400'
-                            }`}
-                            aria-invalid={!!errors.shirtSize}
-                            aria-describedby={errors.shirtSize ? "shirtSize-error" : undefined}
-                        >
-                            <option value="">Shirt Size...</option>
-                            {ShirtSizeData.map((i, key) => (
-                                <option key={key} value={i.name}>{i.name}</option>
-                            ))}
-                        </select>
-                        {errors.shirtSize && (
-                            <p id="shirtSize-error" className='text-sm text-red-500 mt-1' role="alert">
-                                {errors.shirtSize}
-                            </p>
-                        )}
+
+                    <div className='mb-6 grid grid-cols-2 gap-4'>
+                         {/* MEMBERSHIP STATUS */}
+                        <div className='w-[100%] '>
+                            <label htmlFor="membershipStatus" className='mb-2 block'>
+                                Membership Status: <span className="text-red-400">*</span>
+                            </label>
+                            <select 
+                                id="membershipStatus"
+                                name='membershipStatus'
+                                value={data.membershipStatus}
+                                onChange={handleInput}
+                                disabled={isSubmitting}
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
+                                    errors.membershipStatus ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                                }`}
+                                aria-invalid={!!errors.membershipStatus}
+                                aria-describedby={errors.membershipStatus ? "membershipStatus-error" : undefined}
+                            >
+                                <option value="">Membership Status...</option>
+                                {MembershipData.map((i, key) => (
+                                    <option key={key} value={i.name}>{i.name}</option>
+                                ))}
+                            </select>
+                            {errors.membershipStatus && (
+                                <p id="membershipStatus-error" className='text-sm text-red-500 mt-1' role="alert">
+                                    {errors.membershipStatus}
+                                </p>
+                            )}
+                        </div>
+                        {/* SHIRT SIZE */}
+                        <div className='w-[100%]'>
+                            <label htmlFor="shirtSize" className='mb-2 block'>
+                                Shirt Size: <span className="text-red-400">*</span>
+                            </label>
+                            <select 
+                                id="shirtSize"
+                                name='shirtSize'
+                                value={data.shirtSize}
+                                onChange={handleInput}
+                                disabled={isSubmitting}
+                                className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
+                                    errors.shirtSize ? 'border-red-400 bg-red-50' : 'border-gray-400'
+                                }`}
+                                aria-invalid={!!errors.shirtSize}
+                                aria-describedby={errors.shirtSize ? "shirtSize-error" : undefined}
+                            >
+                                <option value="">Shirt Size...</option>
+                                {ShirtSizeData.map((i, key) => (
+                                    <option key={key} value={i.name}>{i.name}</option>
+                                ))}
+                            </select>
+                            {errors.shirtSize && (
+                                <p id="shirtSize-error" className='text-sm text-red-500 mt-1' role="alert">
+                                    {errors.shirtSize}
+                                </p>
+                            )}
+                        </div>
+
                     </div>
+
 
                     {/* ORGANIZATION */}
                     <div className='w-[100%] mb-6'>
@@ -386,38 +449,9 @@ export default function RegisterArea() {
                         )}
                     </div>
 
-                    {/* MEMBERSHIP STATUS */}
-                    <div className='w-[100%] mb-6'>
-                        <label htmlFor="membershipStatus" className='mb-2 block'>
-                            Membership Status: <span className="text-red-400">*</span>
-                        </label>
-                        <select 
-                            id="membershipStatus"
-                            name='membershipStatus'
-                            value={data.membershipStatus}
-                            onChange={handleInput}
-                            disabled={isSubmitting}
-                            className={`w-[100%] outline-none border rounded-lg px-5 py-3 text-gray-500 disabled:cursor-not-allowed ${
-                                errors.membershipStatus ? 'border-red-400 bg-red-50' : 'border-gray-400'
-                            }`}
-                            aria-invalid={!!errors.membershipStatus}
-                            aria-describedby={errors.membershipStatus ? "membershipStatus-error" : undefined}
-                        >
-                            <option value="">Membership Status...</option>
-                            {MembershipData.map((i, key) => (
-                                <option key={key} value={i.name}>{i.name}</option>
-                            ))}
-                        </select>
-                        {errors.membershipStatus && (
-                            <p id="membershipStatus-error" className='text-sm text-red-500 mt-1' role="alert">
-                                {errors.membershipStatus}
-                            </p>
-                        )}
-                    </div>
-
                     
                     {/* SUBMIT BUTTON */}
-                    <div className='w-[100%] mb-2'>
+                    <div className='w-[100%] mt-4 mb-2'>
                         <button 
                             type='submit' 
                             disabled={isSubmitting}
