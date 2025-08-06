@@ -9,6 +9,7 @@ import { ShirtSizeData } from '@/_data/sample/ShirtSizeData';
 import { useOrderStore } from '@/_store/useOrderStore';
 import { OrderInterface } from '@/_data/OrderData';
 import { PackagesData } from '@/_data/PackagesData';
+import { baseURL } from '@/api/sheets/route';
 
 
 
@@ -119,12 +120,12 @@ export default function RegisterArea() {
             }
 
             const body = `
-                First Name: ${data.firstName.trim() ?? ''}
-                Last Name: ${data.lastName.trim()}
-                Phone: ${data.phone.trim()}
-                Email: ${data.email.trim()}
-                Organization: ${data.organization.trim()}
-                Membership Status: ${data.membershipStatus?.trim() || ''}
+                First Name: ${data.firstName ? data.firstName.trim() : ''}
+                Last Name: ${data.lastName ? data.lastName.trim() : ''}
+                Phone: ${data.phone ? data.phone.trim() : ''}
+                Email: ${data.email ? data.email.trim() : ''}
+                Organization: ${data.organization ? data.organization.trim() : ''}
+                Membership Status: ${data.membershipStatus ? data.membershipStatus.trim() : ''}
                 Gender: ${data.gender?.trim()}
                 Shirt Size: ${data.shirtSize?.trim() || ''}
                 Package:  ${data.package?.trim()}
@@ -132,38 +133,55 @@ export default function RegisterArea() {
 
             const emailData = {
                 title: "ATTENDANCE TICKET REQUEST",
-                name: `${data.firstName.trim()} ${data.lastName.trim()}`,
+                name: `${data.firstName ? data.firstName.trim() : ''} ${data.lastName ? data.lastName.trim() : ''}`,
                 time: fullFormattedDate(currentDate),
                 message: body,
-                email: data.email.trim(),
+                email: data.email ? data.email.trim() : '',
             };
 
-            console.log('emailData', data)
             setSubmitSuccess(true);
 
-            const response = await emailjs.send(
+            await emailjs.send(
                 "service_womx366",
                 "template_f4lq602",
                 emailData,
                 'YO9ODOGz2tC6xxXM4'
             );
 
-            if (response.status === 200) {
-                const successMessage = "Sent successful! We will contact you very soon.";
+            const res = await fetch(baseURL, {
+                method: 'POST',
+                redirect: "follow",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8",
+                },
+                body: JSON.stringify(data),
+            });
+
+
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+    
+            const result = await res.json();
+            console.log('result', result);
+    
+            if (result.status === 'success') {
+                const successMessage = "Registration successful! We will contact you very soon.";
                 toast.success(successMessage, reactToastifyDark);
                 setSubmitSuccess(true);
                 resetForm();
-                console.log('Email sent successfully:', response);
+                console.log('Registration successful:', result);
             } else {
-                throw new Error(`Email service returned status: ${response.status}`);
+                throw new Error(result.message || 'Registration failed');
             }
 
         } catch (error) {
             console.error('Registration error:', error);
             let errorMessage = "Something went wrong. Please try again.";
-            // Handle specific error types
             if (error instanceof Error) {
-                if (error.message.includes('network') || error.message.includes('fetch')) {
+                if (error.message.includes('CORS') || error.message.includes('Access-Control')) {
+                    errorMessage = "Connection blocked. Please try again or contact support.";
+                } else if (error.message.includes('Failed to fetch')) {
                     errorMessage = "Network error. Please check your connection and try again.";
                 } else if (error.message.includes('429')) {
                     errorMessage = "Too many requests. Please wait a moment and try again.";
