@@ -5,7 +5,8 @@ import RegisterArea from "./_components/RegisterArea";
 import PackageArea from "./_components/PackageArea";
 import { Organisers } from "@/_data/Organisers";
 import { Secretariat } from "@/_data/Secretariat";
-import { Speaker1 } from "@/_data/Speakers";
+import { SpeakersData } from "@/_data/Speakers";
+import SpeakerSection from "./_components/SpeakerSection";
 
 
 
@@ -36,90 +37,62 @@ export default function Home() {
       <hr className="w-[8rem] border-b border-8 border-teal-900" />
     </section>
 
-    {/* SPEAKER */}
-    <section  className="pb-[5rem] pt-[3rem]">
-      <div className="mx-auto w-[92%] flex md:flex-row flex-col items-center justify-start gap-8">
-        <div className="lg:w-[40%] w-[92%]">
-          <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600 drop-shadow">
-            <div className="relative w-[100%] h-[100%]">
-              <Image
-                src={Speaker1.img}
-                alt="Full Cover Image"
-                width={800}
-                height={600}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-[60%] w-[100%]">
-          <h2 className="text-[2rem] mb-3 font-serif">{Speaker1.name}</h2>
-          <p className="text-md font-light">
-           {Speaker1.description}
-          </p>
-        </div>
-      </div>
-    </section>
+    <div className="h-[8rem]" />
 
     {/* SPEAKER */}
-    {/* <section className="pb-[5rem] ">
-      <div className="mx-auto w-[92%] flex md:flex-row flex-col items-center justify-start gap-8">
-        <div className="lg:w-[60%] w-[100%]">
-          <h2 className="text-[2rem] mb-3 font-serif">Dr. J. P. Konangale</h2>
-          <p className="text-md font-light">
-            Dr. J. P. Konangale is a highly accomplished and results-driven internal audit 
-            professional with 15 years of progressive experience in risk management, compliance, 
-            and operational excellence. Holding a Ph.D. in Accounting, 
-            Finance and Business Administration, Dr. J. P. Konangale brings a unique blend of deep 
-            academic understanding and extensive practical expertise to complex audit challenges. 
-            They possess a proven track record of leading high-performing audit teams, developing 
-            robust audit methodologies, and delivering strategic insights that drive business value 
-            and mitigate organizational risk.
-          </p>
-        </div>
-        <div className="lg:w-[40%] w-[92%]">
-          <div className="w-[100%] rounded-2xl overflow-hidden aspect-[4/3] bg-gray-600">
-            <div className="relative w-[100%] h-[100%]">
-              <Image
-                src="/assets/img/4by3/01.jpg"
-                alt="Full Cover Image"
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> */}
+    <SpeakerSection
+      name={SpeakersData[0].name}
+      title={SpeakersData[0].title}
+      company={SpeakersData[0].company}
+      img={SpeakersData[0].img}
+      description={SpeakersData[0].description}
+      css="flex md:flex-row flex-col"
+    />
+
+    <div className="h-[8rem]" />
+
+    <SpeakerSection
+      name={SpeakersData[1].name}
+      title={SpeakersData[1].title}
+      company={SpeakersData[1].company}
+      img={SpeakersData[1].img}
+      description={SpeakersData[1].description}
+      css="flex md:flex-row-reverse flex-col"
+    />
+
+    <div className="h-[8rem]" />
+   
 
     {/* Organising Committee */}
-    <section className="w-full bg-gray-100 flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">
-      <h1 className="font-extrabold text-[3rem] font-serif">Organising Committee</h1>
-      <hr className="w-[8rem] border-b border-8 border-teal-900" />
-    </section>
-
-    <section className="pb-[5rem] bg-gray-100">
-       <div className="mx-auto w-[92%]">
-        <CarouselSpeakers dbData={Organisers} />
-       </div>
+    <section className="w-full bg-gray-50 flex flex-col items-center justify-center">
+        <div className="h-[3rem]" />
+        <h1 className="font-extrabold text-[3rem] font-serif">Organising Committee</h1>
+        <div className="h-[1rem]" />
+        <hr className="w-[8rem] border-b border-8 border-teal-900" />
+        <div className="h-[1rem]" />
+        <div className="mx-auto w-[92%]">
+          <CarouselSpeakers dbData={Organisers} />
+        </div>
+        <div className="h-[4rem]" />
     </section>
 
 
     {/* Secretariat */}
-    <section className="w-full bg-white flex flex-col gap-4 items-center justify-center pt-[3rem] pb-[2rem]">
-      <h1 className="font-extrabold text-[3rem] font-serif">Secretariat</h1>
-      <hr className="w-[8rem] border-b border-8 border-teal-900" />
+    <section className="w-full bg-white flex flex-col items-center justify-center pb-[2rem]">
+        <div className="h-[3rem]" />
+        <h1 className="font-extrabold text-[3rem] font-serif">Secretariat</h1>
+        <div className="h-[1rem]" />
+        <hr className="w-[8rem] border-b border-8 border-teal-900" />
+        <div className="h-[1rem]" />
+        <div className="mx-auto w-[92%]">
+          <CarouselSpeakers dbData={Secretariat} />
+        </div>
+        <div className="h-[4rem]" />
     </section>
 
-    <section className="pb-[5rem]">
-       <div className="mx-auto w-[92%]">
-        <CarouselSpeakers dbData={Secretariat} />
-       </div>
-    </section>
-
-
-
+   
     <RegisterArea />
+
 
     <PackageArea />
 

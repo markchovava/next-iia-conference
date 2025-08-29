@@ -3,6 +3,8 @@ const SHEET_NAME = 'Attendees';
 // Replace with your Google Sheet ID
 const SHEET_ID = '1GK62XND6tWb-fR7lK8CmEzmYwDdPmbp6AO2clXSTFA4';
 
+
+
 /**
  * Handle GET requests
  */
