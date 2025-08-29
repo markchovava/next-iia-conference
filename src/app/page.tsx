@@ -66,7 +66,7 @@ export default function Home() {
     {/* Organising Committee */}
     <section className="w-full bg-gray-50 flex flex-col items-center justify-center">
         <div className="h-[3rem]" />
-        <h1 className="font-extrabold text-[3rem] font-serif">Organising Committee</h1>
+        <h1 className="font-extrabold text-[3rem] font-serif px-3">Organising Committee</h1>
         <div className="h-[1rem]" />
         <hr className="w-[8rem] border-b border-8 border-teal-900" />
         <div className="h-[1rem]" />
@@ -80,7 +80,7 @@ export default function Home() {
     {/* Secretariat */}
     <section className="w-full bg-white flex flex-col items-center justify-center pb-[2rem]">
         <div className="h-[3rem]" />
-        <h1 className="font-extrabold text-[3rem] font-serif">Secretariat</h1>
+        <h1 className="font-extrabold text-[3rem] font-serif px-3">Secretariat</h1>
         <div className="h-[1rem]" />
         <hr className="w-[8rem] border-b border-8 border-teal-900" />
         <div className="h-[1rem]" />
